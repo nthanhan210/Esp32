@@ -57,7 +57,6 @@ void setup()
 
 void loop()
 {
-  Serial.println(longPress());
   if (longPress() == 1)
   {
     smartConfig_Setup();
@@ -85,26 +84,19 @@ int longPress(void) // kiểm tra nhấn nút 3s
   static uint16_t interval = 0;
   if (digitalRead(PIN_BUTTON) == 0)
   {
-    interval = millis() - lastPress;
-    Serial.println(interval);
-    Serial.println(millis());
-    Serial.println(lastPress);
-    Serial.println();
-    
+    interval = millis() - lastPress;    
   }
   else if (digitalRead(PIN_BUTTON) == 1)
   {
-    Serial.println(interval);
-    Serial.println();
-    if (interval > 8000)
+    if (interval > 5000)
     {
       interval = 0;
       return 2;
     }
-    else if (interval > 3000)
+    else if (interval > 2000)
     {
       interval = 0;
-      return 2;
+      return 1;
     }
     lastPress = millis();
   }

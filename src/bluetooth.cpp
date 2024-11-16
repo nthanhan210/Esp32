@@ -1,11 +1,14 @@
 #include "BluetoothSerial.h"
+#include "main.h"
 // #include "NimBLEDevice.h"
 BluetoothSerial BT;
 bool blueToothFlag = false;
 void bluetooth_Setup(void)
 {
+    blueToothFlag = true;
     BT.begin();
     Serial.println("Bluetooh started! Ready to pair....");
+    ticker.attach(0.5, tick);
     // NimBLEDevice :: init("ESP32");
     // NimBLEServer *server = NimBLEDevice::createService();
     // NimBLEService *service = server->createService("ABCD");
