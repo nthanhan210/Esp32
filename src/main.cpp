@@ -86,9 +86,16 @@ int longPress(void) // kiểm tra nhấn nút 3s
   if (digitalRead(PIN_BUTTON) == 0)
   {
     interval = millis() - lastPress;
+    Serial.println(interval);
+    Serial.println(millis());
+    Serial.println(lastPress);
+    Serial.println();
+    
   }
   else if (digitalRead(PIN_BUTTON) == 1)
   {
+    Serial.println(interval);
+    Serial.println();
     if (interval > 8000)
     {
       interval = 0;
