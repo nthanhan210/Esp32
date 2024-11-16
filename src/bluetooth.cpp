@@ -23,6 +23,12 @@ void bluetooth_Setup(void)
 char buffer[64];
 void bluetooth_Proc(void)
 {
+    if (longPress()==1 && !smartConfigFlag)
+    {
+        blueToothFlag = false;
+        smartConfig_Setup();
+        BT.end();
+    }
     static uint index = 0;
     if (Serial.available())
     {

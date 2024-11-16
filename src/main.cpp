@@ -57,13 +57,8 @@ void setup()
 
 void loop()
 {
-  if (longPress() == 1)
+  if (longPress()==2 && !blueToothFlag)
   {
-    smartConfig_Setup();
-  }
-  else if (longPress() == 2)
-  {
-    blueToothFlag = true;
     bluetooth_Setup();
   }
   if (smartConfigFlag)
@@ -81,26 +76,20 @@ void loop()
 int longPress(void) // kiểm tra nhấn nút 3s
 {
   static int lastPress = 0;
-  static uint16_t interval = 0;
-  if (digitalRead(PIN_BUTTON) == 0)
+  if (millis() - lastPress > 3000 && digitalRead(PIN_BUTTON) == 0)
   {
-    interval = millis() - lastPress;    
+    return 2;
   }
+  else if (millis() - lastPress < 3000 && digitalRead(PIN_BUTTON) == 0)
+  {
+    return 1;
+  }
+  
   else if (digitalRead(PIN_BUTTON) == 1)
   {
-    if (interval > 5000)
-    {
-      interval = 0;
-      return 2;
-    }
-    else if (interval > 2000)
-    {
-      interval = 0;
-      return 1;
-    }
     lastPress = millis();
   }
-  return false;
+  return 0;
 }
 
 void tick(void) // Hàm chuyển trạng thái LED
